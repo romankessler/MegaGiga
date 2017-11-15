@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>_MG.CLI</id>
+    <version>0.1.0</version>
+    <title>MegaGiga CLI</title>
+    <authors>Funkyhead</authors>
+    <owners>Funkyhead</owners>
+    <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/romankessler/MegaGiga</projectUrl>
+    <iconUrl>https://csgobet.click/wp-content/uploads/2016/09/cropped-586px-Gun_outline.svg_-32x32.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MegaGiga aka _MG is a library with some helpful tools for developers.</description>
+    <releaseNotes>This is the first release of the nuget-package for MegaGiga aka _MG.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>_MG.CLI _mg.cli MegaGigaCLI MEGAGIGACLI megagigacli megaGigaCli mgcli mg</tags>
+  </metadata>
+</package>

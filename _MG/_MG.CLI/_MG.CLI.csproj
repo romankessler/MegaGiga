@@ -43,5 +43,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MegaGigaConsole.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="MegaGigaPackage\_MG.CLI.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MegaGigaPackage\lib\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
