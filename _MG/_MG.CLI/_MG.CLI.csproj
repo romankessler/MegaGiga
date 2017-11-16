@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MegaGigaPackage\_MG.CLI.0.1.0.nupkg" />
-    <None Include="MegaGigaPackage\_MG.CLI.nuspec" />
+    <None Include="MegaGigaPackage\_MG.CLI.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Scripts\PostBuild.ps1" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -54,6 +57,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell.exe -ExecutionPolicy Unrestricted -file "$(SolutionDir)_MG.CLI\PostBuild.ps1" "$(ConfigurationName)"</PostBuildEvent>
+    <PostBuildEvent>powershell.exe -ExecutionPolicy Unrestricted -file "$(SolutionDir)_MG.CLI\Scripts\PostBuild.ps1" "$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
