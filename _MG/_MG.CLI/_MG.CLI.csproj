@@ -41,13 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MegaGigaConsole.cs" />
+    <Compile Include="MgConsole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MegaGigaPackage\_MG.CLI.0.1.0.nupkg" />
     <None Include="MegaGigaPackage\_MG.CLI.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="MegaGigaPackage\lib\" />
+    <None Include="MegaGigaPackage\lib\_MG.CLI.dll" />
+    <Content Include="MegaGigaPackage\nuget.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>powershell.exe -ExecutionPolicy Unrestricted -file "$(SolutionDir)_MG.CLI\PostBuild.ps1" "$(ConfigurationName)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

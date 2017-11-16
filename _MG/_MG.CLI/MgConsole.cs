@@ -8,7 +8,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public static class MegaGigaConsole
+    public static class MgConsole
     {
         private const int SW_MAXIMIZE = 3;
 
@@ -53,7 +53,7 @@
 
         public static void StartBlinkingMainTitle(string[] titleLines, int colorTime = 200, List<Tuple<ConsoleColor, ConsoleColor>> colorList = null)
         {
-            MegaGigaConsole.titleLines = titleLines;
+            MgConsole.titleLines = titleLines;
 
             if (colorList == null)
             {
@@ -79,7 +79,7 @@
 
             if (runningTitleTask == null)
             {
-                WriteMainTitle(MegaGigaConsole.titleLines, colorList.First().Item1, colorList.First().Item2);
+                WriteMainTitle(MgConsole.titleLines, colorList.First().Item1, colorList.First().Item2);
 
                 var tokenSource = new CancellationTokenSource();
                 cancellationTokenSource = tokenSource;
@@ -100,7 +100,7 @@
                                     {
                                         break;
                                     }
-                                    WriteMainTitle(MegaGigaConsole.titleLines, color.Item1, color.Item2);
+                                    WriteMainTitle(MgConsole.titleLines, color.Item1, color.Item2);
                                     Thread.Sleep(colorTime);
                                 }
                             }
