@@ -1,4 +1,4 @@
-﻿namespace _MG.CLI
+﻿namespace _MG.CLI.Console
 {
     using System;
     using System.Collections.Generic;
