@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C92AACC4-FD14-4D41-B65A-32EDB9AF1B46}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_MG.CLI</RootNamespace>
-    <AssemblyName>_MG.CLI</AssemblyName>
+    <ProjectGuid>{F51545AB-F47F-4293-B067-68DBB9EDF4FB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>_MG.CLI.Test</RootNamespace>
+    <AssemblyName>_MG.CLI.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,12 +23,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -40,26 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Console\MgConsole.cs" />
-    <Compile Include="Helper\ConsoleWindowHelper.cs" />
-    <Compile Include="Helper\FrameStringHelper.cs" />
-    <Compile Include="Helper\StringLineMarginHelper.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NugetPackage\_MG.CLI.0.1.0.nupkg" />
-    <None Include="NugetPackage\_MG.CLI.nuspec">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Scripts\PostBuild.ps1" />
+    <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="NugetPackage\lib\_MG.CLI.dll" />
-    <Content Include="NugetPackage\nuget.exe" />
+    <ProjectReference Include="..\_MG.CLI\_MG.CLI.csproj">
+      <Project>{c92aacc4-fd14-4d41-b65a-32edb9af1b46}</Project>
+      <Name>_MG.CLI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>powershell.exe -ExecutionPolicy Unrestricted -file "$(SolutionDir)_MG.CLI\Scripts\PostBuild.ps1" "$(ConfigurationName)"</PostBuildEvent>
-  </PropertyGroup>
 </Project>

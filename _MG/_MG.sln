@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{CFA9D6A4
 		..\..\..\Shelf\SuperMegaNugetPackageManagerConsole\SuperMegaNugetPackageManagerConsole\SuperMegaNugetPackageManagerConsole\Tools\nuget.exe = ..\..\..\Shelf\SuperMegaNugetPackageManagerConsole\SuperMegaNugetPackageManagerConsole\SuperMegaNugetPackageManagerConsole\Tools\nuget.exe
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_MG.CLI.Sample", "_MG.CLI.Sample\_MG.CLI.Sample.csproj", "{886B278A-9823-414A-BC80-7D8466A33FB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C92AACC4-FD14-4D41-B65A-32EDB9AF1B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C92AACC4-FD14-4D41-B65A-32EDB9AF1B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C92AACC4-FD14-4D41-B65A-32EDB9AF1B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{886B278A-9823-414A-BC80-7D8466A33FB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886B278A-9823-414A-BC80-7D8466A33FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886B278A-9823-414A-BC80-7D8466A33FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886B278A-9823-414A-BC80-7D8466A33FB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

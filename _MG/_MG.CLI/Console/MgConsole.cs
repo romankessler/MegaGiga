@@ -2,52 +2,28 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
-    using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
 
+    using _MG.CLI.Helper;
+
     public static class MgConsole
     {
-        private const int SW_MAXIMIZE = 3;
-
         private static string[] titleLines;
 
         private static Task runningTitleTask;
 
         private static CancellationTokenSource cancellationTokenSource;
 
-        [DllImport("user32.dll")]
-        public static extern bool ShowWindow(IntPtr hWnd, int cmdShow);
-
         public static void Maximize()
         {
-            var currentProcess = Process.GetCurrentProcess();
-            ShowWindow(currentProcess.MainWindowHandle, SW_MAXIMIZE);
+            ConsoleWindowHelper.Maximize();
         }
 
-        private static int GetConsoleWidth()
+        public static void StartBlinkingMainTitle(string title, int bottomAndTopLineMargin = 0)
         {
-            int windowWidth;
-
-            try
-            {
-                windowWidth = Console.WindowWidth;
-            }
-            catch (Exception)
-            {
-                windowWidth = 80;
-            }
-
-            var width = windowWidth - 1;
-            var length = width % 2 == 0 ? width : width - 1; // for odd length
-
-            return length;
-        }
-
-        public static void StartBlinkingMainTitle(params string[] titleLines)
-        {
+            var titleLines = StringLineMarginHelper.GetTitleWithMarginLines(title, bottomAndTopLineMargin);
             StartBlinkingMainTitle(titleLines);
         }
 
@@ -119,10 +95,7 @@
 
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
-            Console.ForegroundColor = color;
-            Console.BackgroundColor = backgroundColor;
-            WriteFancyMainTitle(titleLines);
-            Console.ResetColor();
+            WriteFancyMainTitle(titleLines, color, backgroundColor);
 
             var top = Console.CursorTop;
             var left = Console.CursorLeft;
@@ -133,34 +106,47 @@
 
         public static void WriteTitle(params string[] titleLines)
         {
-            var titleWidth = GetConsoleWidth();
-            Console.WriteLine($"╔".PadRight(titleWidth, '═') + "╗");
-
+            Console.WriteLine(FrameStringHelper.GetDoubleFrameTop());
             foreach (var line in titleLines)
             {
-                Console.WriteLine($"║{line}".PadRight(titleWidth) + "║");
+                Console.WriteLine(FrameStringHelper.GetDoubleFrameLine(line));
             }
-            Console.WriteLine($"╚".PadRight(titleWidth, '═') + "╝");
+            Console.WriteLine(FrameStringHelper.GetDoubleFrameBottom());
         }
 
         public static void LogMainTitle(params string[] titleLines)
         {
-            var titleWidth = GetConsoleWidth();
-            Console.WriteLine($"▄".PadRight(titleWidth, '▄') + "▄");
-
+            Console.WriteLine(FrameStringHelper.GetBlockFrameTop());
             foreach (var line in titleLines)
             {
-                var centerPadding = titleWidth / 2 - line.Length / 2;
-                var lineLength = line.Length % 2 == 0 ? line.Length : line.Length - 1; // for odd length
-
-                Console.WriteLine("█".PadRight(centerPadding) + $"{line}".PadRight(centerPadding + lineLength) + "█");
+                Console.WriteLine(FrameStringHelper.GetBlockFrameLineCentered(line));
             }
-            Console.WriteLine($"▀".PadRight(titleWidth, '▀') + "▀");
+            Console.WriteLine(FrameStringHelper.GetBlockFrameBottom());
+        }
+
+        public static void WriteFancyMainTitle(
+            ConsoleColor color = ConsoleColor.White,
+            ConsoleColor backgroundColor = ConsoleColor.Black,
+            params string[] titleLines)
+        {
+            WriteFancyMainTitle(titleLines, color, backgroundColor);
         }
 
         public static void WriteFancyMainTitle(params string[] titleLines)
         {
-            var titleWidth = GetConsoleWidth();
+            WriteFancyMainTitle(titleLines, ConsoleColor.White, ConsoleColor.Black);
+        }
+
+        private static void WriteFancyMainTitle(
+            string[] titleLines,
+            ConsoleColor color = ConsoleColor.White,
+            ConsoleColor backgroundColor = ConsoleColor.Black)
+        {
+            // TODO (ROK): 
+            var titleWidth = FrameStringHelper.GetConsoleWidth();
+
+            Console.ForegroundColor = color;
+            Console.BackgroundColor = backgroundColor;
 
             Console.WriteLine(string.Empty);
             Console.WriteLine($"░".PadRight(titleWidth, '░') + "░");
@@ -180,18 +166,18 @@
             Console.WriteLine($"▒".PadRight(titleWidth, '▒') + "▒");
             Console.WriteLine($"░".PadRight(titleWidth, '░') + "░");
             Console.WriteLine(string.Empty);
+
+            Console.ResetColor();
         }
 
         public static void WriteSubTitle(params string[] titleLines)
         {
-            var titleWidth = GetConsoleWidth();
-            Console.WriteLine($"┌".PadRight(titleWidth, '─') + "┐");
-
+            Console.WriteLine(FrameStringHelper.GetSingleFrameTop());
             foreach (var line in titleLines)
             {
-                Console.WriteLine($"│{line}".PadRight(titleWidth) + "│");
+                Console.WriteLine(FrameStringHelper.GetSingleFrameLine(line));
             }
-            Console.WriteLine($"└".PadRight(titleWidth, '─') + "┘");
+            Console.WriteLine(FrameStringHelper.GetSingleFrameBottom());
         }
 
         public static void StopBlinkingMainTitle()
