@@ -14,8 +14,10 @@ namespace _MG.CLI.Sample
     {
         static void Main(string[] args)
         {
-            MgConsole.Maximize();
-            MgConsole.WriteFancyMainTitle("YEEEEAAAAAH !!!!");
+            //MgConsole.Maximize();
+            MgConsole.StartBlinkingMainTitle("YEEEEAAAAAH !!!!");
+            Console.ReadLine();
+            MgConsole.StopBlinkingMainTitle();
             Console.ReadLine();
         }
     }
