@@ -16,18 +16,20 @@ namespace _MG.CLI.Sample
         static void Main(string[] args)
         {
             //MgConsole.Maximize();
-            //MgConsole.StartBlinkingMainTitle("YEEEEAAAAAH !!!!");
-            //Console.ReadLine();
-            //MgConsole.StopBlinkingMainTitle();
+            MgConsole.StartBlinkingMainTitle("YEEEEAAAAAH !!!!");
+            Console.ReadLine();
+            MgConsole.StopBlinkingMainTitle();
 
-            //var mgProgressbar = new MgProgressbar();
-            //mgProgressbar.InitializeProgressBar(100, true, ConsoleColor.Cyan);
+            var mgProgressbar = new MgProgressbar();
+            mgProgressbar.InitializeProgressBar(100, true, ConsoleColor.Cyan);
 
-            //for (var value = 0; value <= 100; value++)
-            //{
-            //    mgProgressbar.SetProgressValue(value, "Installing...");
-            //    Thread.Sleep(50);
-            //}
+            for (var value = 0; value <= 100; value++)
+            {
+                mgProgressbar.SetProgressValue(value, "Installing...");
+                Thread.Sleep(50);
+            }
+            Console.ReadLine();
+            Console.Clear();
 
             MgConsole.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
             MgConsole.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
