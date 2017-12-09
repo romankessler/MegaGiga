@@ -33,7 +33,7 @@ namespace _MG.CLI.Console
             if (IsFinished())
             {
                 System.Console.ForegroundColor = _progressColor;
-                _progressMessage = "FINISH";
+                _progressMessage = "FINISH :-)";
             }
             
             System.Console.Write($" {_progressMessage} ");

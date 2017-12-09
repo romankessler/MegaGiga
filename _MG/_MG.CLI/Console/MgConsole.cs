@@ -1,13 +1,13 @@
-﻿namespace _MG.CLI.Console
+﻿using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using _MG.CLI.Helper;
+
+namespace _MG.CLI.Console
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using _MG.CLI.Helper;
-
     public static class MgConsole
     {
         private static string[] titleLines;
@@ -27,31 +27,30 @@
             StartBlinkingMainTitle(titleLines);
         }
 
-        public static void StartBlinkingMainTitle(string[] titleLines, int colorTime = 200, List<Tuple<ConsoleColor, ConsoleColor>> colorList = null)
+        public static void StartBlinkingMainTitle(string[] titleLines, int colorTime = 200,
+            List<Tuple<ConsoleColor, ConsoleColor>> colorList = null)
         {
             MgConsole.titleLines = titleLines;
 
             if (colorList == null)
-            {
-                colorList = new List<Tuple<ConsoleColor, ConsoleColor>>()
-                                {
-                                    new Tuple<ConsoleColor, ConsoleColor>(
-                                        ConsoleColor.Green,
-                                        ConsoleColor.Black),
-                                    new Tuple<ConsoleColor, ConsoleColor>(
-                                        ConsoleColor.Cyan,
-                                        ConsoleColor.Black),
-                                    new Tuple<ConsoleColor, ConsoleColor>(
-                                        ConsoleColor.Red,
-                                        ConsoleColor.Black),
-                                    new Tuple<ConsoleColor, ConsoleColor>(
-                                        ConsoleColor.Magenta,
-                                        ConsoleColor.Black),
-                                    new Tuple<ConsoleColor, ConsoleColor>(
-                                        ConsoleColor.Yellow,
-                                        ConsoleColor.Black),
-                                };
-            }
+                colorList = new List<Tuple<ConsoleColor, ConsoleColor>>
+                {
+                    new Tuple<ConsoleColor, ConsoleColor>(
+                        ConsoleColor.Green,
+                        ConsoleColor.Black),
+                    new Tuple<ConsoleColor, ConsoleColor>(
+                        ConsoleColor.Cyan,
+                        ConsoleColor.Black),
+                    new Tuple<ConsoleColor, ConsoleColor>(
+                        ConsoleColor.Red,
+                        ConsoleColor.Black),
+                    new Tuple<ConsoleColor, ConsoleColor>(
+                        ConsoleColor.Magenta,
+                        ConsoleColor.Black),
+                    new Tuple<ConsoleColor, ConsoleColor>(
+                        ConsoleColor.Yellow,
+                        ConsoleColor.Black)
+                };
 
             if (runningTitleTask == null)
             {
@@ -62,25 +61,21 @@
                 var cancellationToken = tokenSource.Token;
                 runningTitleTask = Task.Factory.StartNew(
                     () =>
+                    {
+                        while (true)
                         {
-                            while (true)
+                            if (cancellationToken.IsCancellationRequested)
+                                break;
+
+                            foreach (var color in colorList)
                             {
                                 if (cancellationToken.IsCancellationRequested)
-                                {
                                     break;
-                                }
-
-                                foreach (var color in colorList)
-                                {
-                                    if (cancellationToken.IsCancellationRequested)
-                                    {
-                                        break;
-                                    }
-                                    WriteMainTitle(MgConsole.titleLines, color.Item1, color.Item2);
-                                    Thread.Sleep(colorTime);
-                                }
+                                WriteMainTitle(MgConsole.titleLines, color.Item1, color.Item2);
+                                Thread.Sleep(colorTime);
                             }
-                        },
+                        }
+                    },
                     cancellationToken);
             }
         }
@@ -90,38 +85,34 @@
             ConsoleColor color = ConsoleColor.White,
             ConsoleColor backgroundColor = ConsoleColor.Black)
         {
-            var cursorTop = Console.CursorTop;
-            var cursorLeft = Console.CursorLeft;
+            var cursorTop = System.Console.CursorTop;
+            var cursorLeft = System.Console.CursorLeft;
 
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);
+            System.Console.CursorVisible = false;
+            System.Console.SetCursorPosition(0, 0);
             WriteFancyMainTitle(titleLines, color, backgroundColor);
 
-            var top = Console.CursorTop;
-            var left = Console.CursorLeft;
+            var top = System.Console.CursorTop;
+            var left = System.Console.CursorLeft;
 
-            Console.SetCursorPosition(Math.Max(left, cursorLeft), Math.Max(top, cursorTop));
-            Console.CursorVisible = true;
+            System.Console.SetCursorPosition(Math.Max(left, cursorLeft), Math.Max(top, cursorTop));
+            System.Console.CursorVisible = true;
         }
 
         public static void WriteTitle(params string[] titleLines)
         {
-            Console.WriteLine(BorderStringHelper.GetDoubleFrameTop());
+            System.Console.WriteLine(BorderStringHelper.GetDoubleFrameTop());
             foreach (var line in titleLines)
-            {
-                Console.WriteLine(BorderStringHelper.GetDoubleFrameLine(line));
-            }
-            Console.WriteLine(BorderStringHelper.GetDoubleFrameBottom());
+                System.Console.WriteLine(BorderStringHelper.GetDoubleFrameLine(line));
+            System.Console.WriteLine(BorderStringHelper.GetDoubleFrameBottom());
         }
 
         public static void LogMainTitle(params string[] titleLines)
         {
-            Console.WriteLine(BorderStringHelper.GetBlockFrameTop());
+            System.Console.WriteLine(BorderStringHelper.GetBlockFrameTop());
             foreach (var line in titleLines)
-            {
-                Console.WriteLine(BorderStringHelper.GetBlockFrameLineCentered(line));
-            }
-            Console.WriteLine(BorderStringHelper.GetBlockFrameBottom());
+                System.Console.WriteLine(BorderStringHelper.GetBlockFrameLineCentered(line));
+            System.Console.WriteLine(BorderStringHelper.GetBlockFrameBottom());
         }
 
         public static void WriteFancyMainTitle(
@@ -137,6 +128,52 @@
             WriteFancyMainTitle(titleLines, ConsoleColor.White, ConsoleColor.Black);
         }
 
+        public static void WriteWarning(params string[] warningText)
+        {
+            const string WARNING_CAPTION = "WARNING:";
+            WriteStateMessage(WARNING_CAPTION, warningText, ConsoleColor.Yellow, ConsoleColor.Black);
+        }
+        public static void WriteError(params string[] errorText)
+        {
+            const string ERROR_CAPTION = "ERROR:";
+            WriteStateMessage(ERROR_CAPTION, errorText, ConsoleColor.Red, ConsoleColor.Black);
+        }
+
+        public static void WriteDebug(params string[] debugText)
+        {
+#if DEBUG
+            const string DEBUG_TEXT = "DEBUG:";
+            WriteStateMessage(DEBUG_TEXT, debugText, ConsoleColor.Gray, ConsoleColor.Black);
+#endif 
+        }
+
+        private static void WriteStateMessage(string stateCaption, string[] message, ConsoleColor primaryColor, ConsoleColor secondaryColor)
+        {
+            const int PADDING_LEFT = 8;
+            System.Console.BackgroundColor = primaryColor;
+            System.Console.ForegroundColor = secondaryColor;
+
+            System.Console.Write(stateCaption);
+
+            foreach (var text in message)
+            {
+                System.Console.BackgroundColor = secondaryColor;
+                System.Console.ForegroundColor = primaryColor;
+
+                const string INDENT = "   ";
+
+                if (message.First() == text)
+                {
+                    System.Console.Write($"".PadLeft(PADDING_LEFT-stateCaption.Length) +$"{INDENT}{text}");
+                }
+                else
+                {
+                    System.Console.Write($"".PadLeft(PADDING_LEFT) + $"{INDENT}{text}");
+                }
+                System.Console.WriteLine();
+            }
+        }
+
         private static void WriteFancyMainTitle(
             string[] titleLines,
             ConsoleColor color = ConsoleColor.White,
@@ -145,39 +182,38 @@
             // TODO (ROK): 
             var titleWidth = BorderStringHelper.GetConsoleWidth();
 
-            Console.ForegroundColor = color;
-            Console.BackgroundColor = backgroundColor;
+            System.Console.ForegroundColor = color;
+            System.Console.BackgroundColor = backgroundColor;
 
-            Console.WriteLine(string.Empty);
-            Console.WriteLine($"░".PadRight(titleWidth, '░') + "░");
-            Console.WriteLine($"▒".PadRight(titleWidth, '▒') + "▒");
-            Console.WriteLine($"▓".PadRight(titleWidth, '▓') + "▓");
-            Console.WriteLine($"█".PadRight(titleWidth, '█') + "█");
+            System.Console.WriteLine(string.Empty);
+            System.Console.WriteLine($"░".PadRight(titleWidth, '░') + "░");
+            System.Console.WriteLine($"▒".PadRight(titleWidth, '▒') + "▒");
+            System.Console.WriteLine($"▓".PadRight(titleWidth, '▓') + "▓");
+            System.Console.WriteLine($"█".PadRight(titleWidth, '█') + "█");
 
             foreach (var line in titleLines)
             {
                 var centerPadding = titleWidth / 2 - line.Length / 2;
                 var lineLength = line.Length % 2 == 0 ? line.Length : line.Length - 1; // for odd length
 
-                Console.WriteLine("█".PadRight(centerPadding) + $"{line}".PadRight(centerPadding + lineLength) + "█");
+                System.Console.WriteLine("█".PadRight(centerPadding) + $"{line}".PadRight(centerPadding + lineLength) +
+                                         "█");
             }
-            Console.WriteLine($"█".PadRight(titleWidth, '█') + "█");
-            Console.WriteLine($"▓".PadRight(titleWidth, '▓') + "▓");
-            Console.WriteLine($"▒".PadRight(titleWidth, '▒') + "▒");
-            Console.WriteLine($"░".PadRight(titleWidth, '░') + "░");
-            Console.WriteLine(string.Empty);
+            System.Console.WriteLine($"█".PadRight(titleWidth, '█') + "█");
+            System.Console.WriteLine($"▓".PadRight(titleWidth, '▓') + "▓");
+            System.Console.WriteLine($"▒".PadRight(titleWidth, '▒') + "▒");
+            System.Console.WriteLine($"░".PadRight(titleWidth, '░') + "░");
+            System.Console.WriteLine(string.Empty);
 
-            Console.ResetColor();
+            System.Console.ResetColor();
         }
 
         public static void WriteSubTitle(params string[] titleLines)
         {
-            Console.WriteLine(BorderStringHelper.GetSingleFrameTop());
+            System.Console.WriteLine(BorderStringHelper.GetSingleFrameTop());
             foreach (var line in titleLines)
-            {
-                Console.WriteLine(BorderStringHelper.GetSingleFrameLine(line));
-            }
-            Console.WriteLine(BorderStringHelper.GetSingleFrameBottom());
+                System.Console.WriteLine(BorderStringHelper.GetSingleFrameLine(line));
+            System.Console.WriteLine(BorderStringHelper.GetSingleFrameBottom());
         }
 
         public static void StopBlinkingMainTitle()
