@@ -21,7 +21,7 @@ namespace _MG.CLI.Sample
             MgConsole.StopBlinkingMainTitle();
 
             var mgProgressbar = new MgProgressbar();
-            mgProgressbar.InitializeProgressBar(100, true, ConsoleColor.Cyan);
+            mgProgressbar.InitializeProgressBar();
 
             for (var value = 0; value <= 100; value++)
             {
@@ -31,9 +31,9 @@ namespace _MG.CLI.Sample
             Console.ReadLine();
             Console.Clear();
 
+            MgConsole.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
             MgConsole.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
             MgConsole.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
 
             Console.ReadLine();
         }
