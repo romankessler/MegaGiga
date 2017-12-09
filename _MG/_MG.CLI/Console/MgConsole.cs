@@ -106,22 +106,22 @@
 
         public static void WriteTitle(params string[] titleLines)
         {
-            Console.WriteLine(FrameStringHelper.GetDoubleFrameTop());
+            Console.WriteLine(BorderStringHelper.GetDoubleFrameTop());
             foreach (var line in titleLines)
             {
-                Console.WriteLine(FrameStringHelper.GetDoubleFrameLine(line));
+                Console.WriteLine(BorderStringHelper.GetDoubleFrameLine(line));
             }
-            Console.WriteLine(FrameStringHelper.GetDoubleFrameBottom());
+            Console.WriteLine(BorderStringHelper.GetDoubleFrameBottom());
         }
 
         public static void LogMainTitle(params string[] titleLines)
         {
-            Console.WriteLine(FrameStringHelper.GetBlockFrameTop());
+            Console.WriteLine(BorderStringHelper.GetBlockFrameTop());
             foreach (var line in titleLines)
             {
-                Console.WriteLine(FrameStringHelper.GetBlockFrameLineCentered(line));
+                Console.WriteLine(BorderStringHelper.GetBlockFrameLineCentered(line));
             }
-            Console.WriteLine(FrameStringHelper.GetBlockFrameBottom());
+            Console.WriteLine(BorderStringHelper.GetBlockFrameBottom());
         }
 
         public static void WriteFancyMainTitle(
@@ -143,7 +143,7 @@
             ConsoleColor backgroundColor = ConsoleColor.Black)
         {
             // TODO (ROK): 
-            var titleWidth = FrameStringHelper.GetConsoleWidth();
+            var titleWidth = BorderStringHelper.GetConsoleWidth();
 
             Console.ForegroundColor = color;
             Console.BackgroundColor = backgroundColor;
@@ -172,12 +172,12 @@
 
         public static void WriteSubTitle(params string[] titleLines)
         {
-            Console.WriteLine(FrameStringHelper.GetSingleFrameTop());
+            Console.WriteLine(BorderStringHelper.GetSingleFrameTop());
             foreach (var line in titleLines)
             {
-                Console.WriteLine(FrameStringHelper.GetSingleFrameLine(line));
+                Console.WriteLine(BorderStringHelper.GetSingleFrameLine(line));
             }
-            Console.WriteLine(FrameStringHelper.GetSingleFrameBottom());
+            Console.WriteLine(BorderStringHelper.GetSingleFrameBottom());
         }
 
         public static void StopBlinkingMainTitle()

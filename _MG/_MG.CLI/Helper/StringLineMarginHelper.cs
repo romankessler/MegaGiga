@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _MG.CLI.Helper
 {
@@ -14,17 +11,13 @@ namespace _MG.CLI.Helper
 
             // Top Margin
             for (var i = 0; i < bottomAndTopLineMargin; i++)
-            {
                 cache.Add(Environment.NewLine);
-            }
 
             cache.Add(title);
 
             // Bottom Margin
             for (var i = 0; i < bottomAndTopLineMargin; i++)
-            {
                 cache.Add(Environment.NewLine);
-            }
 
             var titleLines = cache.ToArray();
             return titleLines;

@@ -41,13 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Console\MgConsole.cs" />
+    <Compile Include="Console\MgProgressbar.cs" />
     <Compile Include="Helper\ConsoleWindowHelper.cs" />
-    <Compile Include="Helper\FrameStringHelper.cs" />
+    <Compile Include="Helper\BorderStringHelper.cs" />
     <Compile Include="Helper\StringLineMarginHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NugetPackage\_MG.CLI.0.1.0.nupkg" />
     <None Include="NugetPackage\_MG.CLI.nuspec">
       <SubType>Designer</SubType>
     </None>

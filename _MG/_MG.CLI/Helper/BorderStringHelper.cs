@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal static class FrameStringHelper
+    internal static class BorderStringHelper
     {
         internal static int GetConsoleWidth()
         {
