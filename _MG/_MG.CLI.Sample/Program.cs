@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using _MG.CLI.Helper;
 
 namespace _MG.CLI.Sample
 {
@@ -17,8 +18,24 @@ namespace _MG.CLI.Sample
         {
             //MgConsole.Maximize();
             SampleBlinkingTitle();
+            SampleTitles();
             SampleProgressbar();
             SampleStateMessages();
+        }
+
+        private static void SampleTitles()
+        {
+            Console.Clear();
+            MgConsole.Title.WriteTitle(BorderStringHelper.BorderType.SingleBorder, "Single-Border");
+            Console.ReadLine();
+            Console.Clear();
+            MgConsole.Title.WriteTitle(BorderStringHelper.BorderType.DoubleBorder, "Double-Border");
+            Console.ReadLine();
+            Console.Clear();
+            MgConsole.Title.WriteTitle(BorderStringHelper.BorderType.BlockBorder, "Block-Border");
+            Console.ReadLine();
+
+            Console.Clear();
         }
 
         private static void SampleStateMessages()
