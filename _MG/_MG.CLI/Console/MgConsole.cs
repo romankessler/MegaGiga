@@ -139,6 +139,12 @@ namespace _MG.CLI.Console
             WriteStateMessage(ERROR_CAPTION, errorText, ConsoleColor.Red, ConsoleColor.Black);
         }
 
+        public static void WriteInformation(params string[] informationText)
+        {
+            const string INFORMATION = "INFORMATION:";
+            WriteStateMessage(INFORMATION, informationText, ConsoleColor.Cyan, ConsoleColor.Black);
+        }
+
         public static void WriteDebug(params string[] debugText)
         {
 #if DEBUG
@@ -149,7 +155,7 @@ namespace _MG.CLI.Console
 
         private static void WriteStateMessage(string stateCaption, string[] message, ConsoleColor primaryColor, ConsoleColor secondaryColor)
         {
-            const int PADDING_LEFT = 8;
+            const int PADDING_LEFT = 13;
             System.Console.BackgroundColor = primaryColor;
             System.Console.ForegroundColor = secondaryColor;
 
