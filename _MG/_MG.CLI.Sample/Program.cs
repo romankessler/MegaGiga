@@ -16,10 +16,24 @@ namespace _MG.CLI.Sample
         static void Main(string[] args)
         {
             //MgConsole.Maximize();
-            MgConsole.StartBlinkingMainTitle("YEEEEAAAAAH !!!!");
-            Console.ReadLine();
-            MgConsole.StopBlinkingMainTitle();
+            //SampleBlinkingTitle();
+            //SampleProgressbar();
+            SampleStateMessages();
+        }
 
+        private static void SampleStateMessages()
+        {
+            MgConsole.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.WriteMessage("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.WriteInformation("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+
+            Console.ReadLine();
+        }
+
+        private static void SampleProgressbar()
+        {
             var mgProgressbar = new MgProgressbar();
             mgProgressbar.InitializeProgressBar();
 
@@ -30,14 +44,13 @@ namespace _MG.CLI.Sample
             }
             Console.ReadLine();
             Console.Clear();
+        }
 
-            MgConsole.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteMessage("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteInformation("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-
+        private static void SampleBlinkingTitle()
+        {
+            MgConsole.StartBlinkingMainTitle("YEEEEAAAAAH !!!!");
             Console.ReadLine();
+            MgConsole.StopBlinkingMainTitle();
         }
     }
 }

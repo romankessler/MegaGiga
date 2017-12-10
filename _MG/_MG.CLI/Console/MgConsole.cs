@@ -130,31 +130,31 @@ namespace _MG.CLI.Console
 
         public static void WriteWarning(params string[] warningText)
         {
-            const string WARNING_CAPTION = "WARNING:";
+            const string WARNING_CAPTION = "WARNING";
             WriteStateMessage(WARNING_CAPTION, warningText, ConsoleColor.Yellow, ConsoleColor.Black);
         }
         public static void WriteError(params string[] errorText)
         {
-            const string ERROR_CAPTION = "ERROR:";
+            const string ERROR_CAPTION = "ERROR";
             WriteStateMessage(ERROR_CAPTION, errorText, ConsoleColor.Red, ConsoleColor.Black);
         }
 
         public static void WriteInformation(params string[] informationText)
         {
-            const string INFORMATION = "INFORMATION:";
+            const string INFORMATION = "INFORMATION";
             WriteStateMessage(INFORMATION, informationText, ConsoleColor.Cyan, ConsoleColor.Black);
         }
 
         public static void WriteMessage(params string[] messageText)
         {
-            const string MESSAGE = "MESSAGE:";
+            const string MESSAGE = "MESSAGE";
             WriteStateMessage(MESSAGE, messageText, ConsoleColor.White, ConsoleColor.Black);
         }
 
         public static void WriteDebug(params string[] debugText)
         {
 #if DEBUG
-            const string DEBUG_TEXT = "DEBUG:";
+            const string DEBUG_TEXT = "DEBUG";
             WriteStateMessage(DEBUG_TEXT, debugText, ConsoleColor.Gray, ConsoleColor.Black);
 #endif 
         }
@@ -169,19 +169,20 @@ namespace _MG.CLI.Console
 
             foreach (var text in message)
             {
-                System.Console.BackgroundColor = secondaryColor;
-                System.Console.ForegroundColor = primaryColor;
-
-                const string INDENT = "   ";
-
+                System.Console.BackgroundColor = primaryColor;
+                System.Console.ForegroundColor = secondaryColor;
                 if (message.First() == text)
                 {
-                    System.Console.Write($"".PadLeft(Math.Max(PADDING_LEFT-stateCaption.Length,0)) +$"{INDENT}{text}");
+                    System.Console.Write($"".PadLeft(Math.Max(PADDING_LEFT-stateCaption.Length,0)));
                 }
                 else
                 {
-                    System.Console.Write($"".PadLeft(PADDING_LEFT) + $"{INDENT}{text}");
+                    System.Console.Write($"".PadLeft(PADDING_LEFT));
                 }
+                System.Console.BackgroundColor = secondaryColor;
+                System.Console.ForegroundColor = primaryColor;
+                System.Console.Write($" {text}");
+
                 System.Console.WriteLine();
             }
         }
