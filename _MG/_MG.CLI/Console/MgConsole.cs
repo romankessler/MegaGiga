@@ -145,6 +145,12 @@ namespace _MG.CLI.Console
             WriteStateMessage(INFORMATION, informationText, ConsoleColor.Cyan, ConsoleColor.Black);
         }
 
+        public static void WriteMessage(params string[] messageText)
+        {
+            const string MESSAGE = "MESSAGE:";
+            WriteStateMessage(MESSAGE, messageText, ConsoleColor.White, ConsoleColor.Black);
+        }
+
         public static void WriteDebug(params string[] debugText)
         {
 #if DEBUG
@@ -170,7 +176,7 @@ namespace _MG.CLI.Console
 
                 if (message.First() == text)
                 {
-                    System.Console.Write($"".PadLeft(PADDING_LEFT-stateCaption.Length) +$"{INDENT}{text}");
+                    System.Console.Write($"".PadLeft(Math.Max(PADDING_LEFT-stateCaption.Length,0)) +$"{INDENT}{text}");
                 }
                 else
                 {

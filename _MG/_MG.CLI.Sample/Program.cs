@@ -32,6 +32,7 @@ namespace _MG.CLI.Sample
             Console.Clear();
 
             MgConsole.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.WriteMessage("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
             MgConsole.WriteInformation("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
             MgConsole.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
             MgConsole.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
