@@ -1,8 +1,8 @@
-﻿namespace _MG.CLI.Helper
-{
-    using System;
+﻿using System;
 
-    internal static class BorderStringHelper
+namespace _MG.CLI.Helper
+{
+    public class BorderStringHelper
     {
         internal static int GetConsoleWidth()
         {
@@ -10,7 +10,7 @@
 
             try
             {
-                windowWidth = Console.WindowWidth;
+                windowWidth = System.Console.WindowWidth;
             }
             catch (Exception)
             {
@@ -23,75 +23,67 @@
             return length;
         }
 
-        internal static string GetDoubleFrameBottom()
-        {
-            var titleWidth = GetConsoleWidth();
-            return GetDoubleFrameBottom(titleWidth);
-        }
-
-        internal static string GetDoubleFrameLine(string line)
-        {
-            var titleWidth = GetConsoleWidth();
-            return GetDoubleFrameLine(line, titleWidth);
-        }
-
-        internal static string GetDoubleFrameTop()
-        {
-            var titleWidth = GetConsoleWidth();
-            return GetDoubleFrameTop(titleWidth);
-        }
-
-        internal static string GetDoubleFrameBottom(int titleWidth)
-        {
-            return $"╚".PadRight(titleWidth, '═') + "╝";
-        }
-
-        internal static string GetDoubleFrameLine(string line, int titleWidth)
-        {
-            return $"║{line}".PadRight(titleWidth) + "║";
-        }
-
-        internal static string GetDoubleFrameTop(int titleWidth)
-        {
-            return $"╔".PadRight(titleWidth, '═') + "╗";
-        }
-
-        internal static string GetSingleFrameBottom(int titleWidth)
-        {
-            return $"└".PadRight(titleWidth, '─') + "┘";
-        }
-
-        internal static string GetSingleFrameLine(string line, int titleWidth)
-        {
-            return $"│{line}".PadRight(titleWidth) + "│";
-        }
-
-        internal static string GetSingleFrameTop(int titleWidth)
-        {
-            return $"┌".PadRight(titleWidth, '─') + "┐";
-        }
-
-        internal static string GetSingleFrameTop()
+        public static string GetBorderTop(BorderType borderType)
         {
             var consoleWidth = GetConsoleWidth();
-            return GetSingleFrameTop(consoleWidth);
+            return GetBorderTop(borderType, consoleWidth);
         }
 
-        internal static string GetSingleFrameLine(string line)
+        public static string GetBorderTop(BorderType borderType, int borderWidth)
+        {
+            switch (borderType)
+            {
+                case BorderType.SingleBorder:
+                    return $"┌".PadRight(borderWidth, '─') + "┐";
+                case BorderType.DoubleBorder:
+                    return $"╔".PadRight(borderWidth, '═') + "╗";
+                case BorderType.BlockBorder:
+                    return $"▄".PadRight(borderWidth, '▄') + "▄";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
+            }
+        }
+
+        public static string GetBorderBottom(BorderType borderType)
         {
             var consoleWidth = GetConsoleWidth();
-            return GetSingleFrameLine(line, consoleWidth);
+            return GetBorderBottom(borderType, consoleWidth);
         }
 
-        internal static string GetSingleFrameBottom()
+        public static string GetBorderBottom(BorderType borderType, int borderWidth)
+        {
+            switch (borderType)
+            {
+                case BorderType.SingleBorder:
+                    return $"└".PadRight(borderWidth, '─') + "┘";
+                case BorderType.DoubleBorder:
+                    return $"╚".PadRight(borderWidth, '═') + "╝";
+                case BorderType.BlockBorder:
+                    return $"▀".PadRight(borderWidth, '▀') + "▀";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
+            }
+        }
+
+        public static string GetBorderLine(BorderType borderType, string line)
         {
             var consoleWidth = GetConsoleWidth();
-            return GetSingleFrameBottom(consoleWidth);
+            return GetBorderLine(borderType, consoleWidth, line);
         }
 
-        internal static string GetBlockFrameBottom(int titleWidth)
+        public static string GetBorderLine(BorderType borderType, int borderWidth, string line)
         {
-            return $"▀".PadRight(titleWidth, '▀') + "▀";
+            switch (borderType)
+            {
+                case BorderType.SingleBorder:
+                    return $"│{line}".PadRight(borderWidth) + "│";
+                case BorderType.DoubleBorder:
+                    return $"║{line}".PadRight(borderWidth) + "║";
+                case BorderType.BlockBorder:
+                    return $"▀".PadRight(borderWidth, '▀') + "▀";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
+            }
         }
 
         internal static string GetBlockFrameLineCentered(string line, int titleWidth)
@@ -102,27 +94,17 @@
             return centeredTitle;
         }
 
-        internal static string GetBlockFrameTop(int titleWidth)
-        {
-            return $"▄".PadRight(titleWidth, '▄') + "▄";
-        }
-
-        internal static string GetBlockFrameBottom()
-        {
-            var consoleWidth = GetConsoleWidth();
-            return GetBlockFrameBottom(consoleWidth);
-        }
-
         internal static string GetBlockFrameLineCentered(string line)
         {
             var consoleWidth = GetConsoleWidth();
             return GetBlockFrameLineCentered(line, consoleWidth);
         }
 
-        internal static string GetBlockFrameTop()
+        public enum BorderType
         {
-            var consoleWidth = GetConsoleWidth();
-            return GetBlockFrameTop(consoleWidth);
+            SingleBorder,
+            DoubleBorder,
+            BlockBorder
         }
     }
 }

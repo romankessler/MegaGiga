@@ -29,20 +29,12 @@ namespace _MG.CLI.Console
             System.Console.CursorVisible = true;
         }
 
-        public void WriteTitle(params string[] titleLines)
+        public void WriteTitle(BorderStringHelper.BorderType borderType, params string[] titleLines)
         {
-            System.Console.WriteLine(BorderStringHelper.GetDoubleFrameTop());
+            System.Console.WriteLine(BorderStringHelper.GetBorderTop(borderType));
             foreach (var line in titleLines)
-                System.Console.WriteLine(BorderStringHelper.GetDoubleFrameLine(line));
-            System.Console.WriteLine(BorderStringHelper.GetDoubleFrameBottom());
-        }
-
-        public void LogMainTitle(params string[] titleLines)
-        {
-            System.Console.WriteLine(BorderStringHelper.GetBlockFrameTop());
-            foreach (var line in titleLines)
-                System.Console.WriteLine(BorderStringHelper.GetBlockFrameLineCentered(line));
-            System.Console.WriteLine(BorderStringHelper.GetBlockFrameBottom());
+                System.Console.WriteLine(BorderStringHelper.GetBorderLine(borderType, line));
+            System.Console.WriteLine(BorderStringHelper.GetBorderBottom(borderType));
         }
 
         public void WriteFancyMainTitle(
@@ -57,9 +49,7 @@ namespace _MG.CLI.Console
         {
             WriteFancyMainTitle(titleLines, ConsoleColor.White, ConsoleColor.Black);
         }
-
-
-
+    
         private static void WriteFancyMainTitle(
             string[] titleLines,
             ConsoleColor color = ConsoleColor.White,
@@ -92,14 +82,6 @@ namespace _MG.CLI.Console
             System.Console.WriteLine(string.Empty);
 
             System.Console.ResetColor();
-        }
-
-        public void WriteSubTitle(params string[] titleLines)
-        {
-            System.Console.WriteLine(BorderStringHelper.GetSingleFrameTop());
-            foreach (var line in titleLines)
-                System.Console.WriteLine(BorderStringHelper.GetSingleFrameLine(line));
-            System.Console.WriteLine(BorderStringHelper.GetSingleFrameBottom());
         }
 
         public void StartBlinkingMainTitle(string title, int bottomAndTopLineMargin = 0)
