@@ -16,31 +16,28 @@ namespace _MG.CLI.Sample
         static void Main(string[] args)
         {
             //MgConsole.Maximize();
-            //SampleBlinkingTitle();
-            //SampleProgressbar();
+            SampleBlinkingTitle();
+            SampleProgressbar();
             SampleStateMessages();
         }
 
         private static void SampleStateMessages()
         {
-            MgConsole.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteMessage("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteInformation("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.StateWriter.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.StateWriter.WriteMessage("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.StateWriter.WriteInformation("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.StateWriter.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.StateWriter.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
 
             Console.ReadLine();
         }
 
         private static void SampleProgressbar()
         {
-            var mgProgressbar = new MgProgressbar();
-            mgProgressbar.InitializeProgressBar();
-
             for (var value = 0; value <= 100; value++)
             {
-                mgProgressbar.SetProgressValue(value, "Installing...");
-                Thread.Sleep(50);
+                MgConsole.Progressbar.SetProgressValue(value, "Installing...");
+                Thread.Sleep(20);
             }
             Console.ReadLine();
             Console.Clear();
@@ -48,9 +45,9 @@ namespace _MG.CLI.Sample
 
         private static void SampleBlinkingTitle()
         {
-            MgConsole.StartBlinkingMainTitle("YEEEEAAAAAH !!!!");
+            MgConsole.Title.StartBlinkingMainTitle("YEEEEAAAAAH !!!!");
             Console.ReadLine();
-            MgConsole.StopBlinkingMainTitle();
+            MgConsole.Title.StopBlinkingMainTitle();
         }
     }
 }

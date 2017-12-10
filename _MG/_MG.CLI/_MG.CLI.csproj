@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Console\MgConsole.cs" />
+    <Compile Include="Console\MgStateWriter.cs" />
+    <Compile Include="Console\MgTitle.cs" />
+    <Compile Include="MgConsole.cs" />
     <Compile Include="Console\MgProgressbar.cs" />
     <Compile Include="Helper\ConsoleWindowHelper.cs" />
     <Compile Include="Helper\BorderStringHelper.cs" />

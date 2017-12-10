@@ -1,23 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _MG.CLI.Console
 {
     public class MgProgressbar
     {
-        public MgProgressbar()
-        {
-        }
+        private const int DEFAULT_MAX_VALUE = 100;
+
+        private const int PROGRESSBAR_WIDTH_IN_CHARACTERS = 50;
+        private const string DEFAULT_FINISH_MESSAGE = "FINISH :-)";
+        private const string CHARACTER_PROGRESS_EMPTY = "░";
+        private const string CHARACTER_PROGRESS_DONE = "█";
+
+        private int _currentProgressValue;
+        private int _maxProgressValue;
+
+        private ConsoleColor _progressColor;
+
+        private string _progressMessage;
+
+        private bool _writeProgress;
 
         private void ResetProgressValue()
         {
             _currentProgressValue = 0;
         }
 
-        public void SetProgressValue(int currentValue,string progressMassage = null)
+        public void SetProgressValue(int currentValue, string progressMassage = null)
         {
             var value = Math.Min(_maxProgressValue, currentValue);
             _currentProgressValue = value;
@@ -33,9 +41,9 @@ namespace _MG.CLI.Console
             if (IsFinished())
             {
                 System.Console.ForegroundColor = _progressColor;
-                _progressMessage = "FINISH :-)";
+                _progressMessage = DEFAULT_FINISH_MESSAGE;
             }
-            
+
             System.Console.Write($" {_progressMessage} ");
 
             var currentAmount = GetCurrentCharacterAmount();
@@ -43,7 +51,7 @@ namespace _MG.CLI.Console
             {
                 System.Console.BackgroundColor = ConsoleColor.Black;
                 System.Console.ForegroundColor = _progressColor;
-                System.Console.Write("█");
+                System.Console.Write(CHARACTER_PROGRESS_DONE);
             }
 
             var fillingAmount = GetFillingAmount(currentAmount);
@@ -51,15 +59,13 @@ namespace _MG.CLI.Console
             {
                 System.Console.BackgroundColor = ConsoleColor.Black;
                 System.Console.ForegroundColor = ConsoleColor.Gray;
-                System.Console.Write("░");
+                System.Console.Write(CHARACTER_PROGRESS_EMPTY);
             }
 
             if (_writeProgress)
             {
                 if (IsFinished())
-                {
                     System.Console.ForegroundColor = _progressColor;
-                }
                 var value = GetProgressPercentage();
                 System.Console.Write($" {value}% ");
             }
@@ -87,7 +93,8 @@ namespace _MG.CLI.Console
             var percentPerCharacter = GetPercentPerCharacter();
             var characterAmount = _currentProgressValue / percentPerCharacter;
 
-            return Math.Min(PROGRESSBAR_WIDTH_IN_CHARACTERS, characterAmount); ;
+            return Math.Min(PROGRESSBAR_WIDTH_IN_CHARACTERS, characterAmount);
+            ;
         }
 
         private int GetPercentPerCharacter()
@@ -95,25 +102,13 @@ namespace _MG.CLI.Console
             return _maxProgressValue / PROGRESSBAR_WIDTH_IN_CHARACTERS;
         }
 
-        public void InitializeProgressBar(int maxValue = DEFAULT_MAX_VALUE, bool writeProgress = true, ConsoleColor progressColor = ConsoleColor.Green)
+        public void InitializeProgressBar(int maxValue = DEFAULT_MAX_VALUE, bool writeProgress = true,
+            ConsoleColor progressColor = ConsoleColor.Green)
         {
             ResetProgressValue();
             _maxProgressValue = maxValue;
             _writeProgress = writeProgress;
             _progressColor = progressColor;
         }
-
-        private int _currentProgressValue;
-        private int _maxProgressValue;
-
-        private string _progressMessage;
-
-        private bool _writeProgress;
-
-        private ConsoleColor _progressColor;
-
-        private const int DEFAULT_MAX_VALUE = 100;
-
-        private const int PROGRESSBAR_WIDTH_IN_CHARACTERS = 50;
     }
 }
