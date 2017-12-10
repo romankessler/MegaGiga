@@ -40,11 +40,11 @@ namespace _MG.CLI.Sample
 
         private static void SampleStateMessages()
         {
-            MgConsole.StateWriter.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.StateWriter.WriteMessage("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.StateWriter.WriteInformation("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.StateWriter.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
-            MgConsole.StateWriter.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.ConsoleLogger.WriteDebug("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.ConsoleLogger.WriteMessage("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.ConsoleLogger.WriteInformation("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.ConsoleLogger.WriteWarning("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
+            MgConsole.ConsoleLogger.WriteError("Die Einstellungen sind leer", "Bitte Feld sowieso ausfüllen.");
 
             Console.ReadLine();
         }

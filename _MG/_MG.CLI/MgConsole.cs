@@ -8,12 +8,12 @@ namespace _MG.CLI
         static MgConsole()
         {
             Title = new MgTitle();
-            StateWriter = new MgStateWriter();
+            ConsoleLogger = new MgConsoleLogger();
             Progressbar = new MgProgressbar();
             Progressbar.InitializeProgressBar();
         }
 
-        public static MgStateWriter StateWriter { get; set; }
+        public static MgConsoleLogger ConsoleLogger { get; set; }
 
         public static MgProgressbar Progressbar { get; set; }
 
