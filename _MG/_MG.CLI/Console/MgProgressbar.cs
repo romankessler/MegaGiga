@@ -5,11 +5,15 @@ namespace _MG.CLI.Console
     public class MgProgressbar
     {
         private const int DEFAULT_MAX_VALUE = 100;
-
         private const int PROGRESSBAR_WIDTH_IN_CHARACTERS = 50;
+
         private const string DEFAULT_FINISH_MESSAGE = "FINISH :-)";
+
         private const string CHARACTER_PROGRESS_EMPTY = "░";
         private const string CHARACTER_PROGRESS_DONE = "█";
+
+        private const ConsoleColor DEFAULT_PROGRESS_COLOR = ConsoleColor.Green;
+        private const ConsoleColor DEFAULT_BAR_COLOR = ConsoleColor.Gray;
 
         private int _currentProgressValue;
         private int _maxProgressValue;
@@ -17,7 +21,6 @@ namespace _MG.CLI.Console
         private ConsoleColor _progressColor;
 
         private string _progressMessage;
-
         private bool _writeProgress;
 
         private void ResetProgressValue()
@@ -58,7 +61,7 @@ namespace _MG.CLI.Console
             for (var i = 0; i < fillingAmount; i++)
             {
                 System.Console.BackgroundColor = ConsoleColor.Black;
-                System.Console.ForegroundColor = ConsoleColor.Gray;
+                System.Console.ForegroundColor = DEFAULT_BAR_COLOR;
                 System.Console.Write(CHARACTER_PROGRESS_EMPTY);
             }
 
@@ -94,7 +97,6 @@ namespace _MG.CLI.Console
             var characterAmount = _currentProgressValue / percentPerCharacter;
 
             return Math.Min(PROGRESSBAR_WIDTH_IN_CHARACTERS, characterAmount);
-            ;
         }
 
         private int GetPercentPerCharacter()
@@ -103,7 +105,7 @@ namespace _MG.CLI.Console
         }
 
         public void InitializeProgressBar(int maxValue = DEFAULT_MAX_VALUE, bool writeProgress = true,
-            ConsoleColor progressColor = ConsoleColor.Green)
+            ConsoleColor progressColor = DEFAULT_PROGRESS_COLOR)
         {
             ResetProgressValue();
             _maxProgressValue = maxValue;

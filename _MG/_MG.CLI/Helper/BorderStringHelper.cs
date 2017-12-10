@@ -4,6 +4,14 @@ namespace _MG.CLI.Helper
 {
     public class BorderStringHelper
     {
+        public enum BorderType
+        {
+            SingleBorder,
+            DoubleBorder,
+            BlockBorder,
+            GradientTopBottomBorder
+        }
+
         internal static int GetConsoleWidth()
         {
             int windowWidth;
@@ -39,6 +47,11 @@ namespace _MG.CLI.Helper
                     return $"╔".PadRight(borderWidth, '═') + "╗";
                 case BorderType.BlockBorder:
                     return $"▄".PadRight(borderWidth, '▄') + "▄";
+                case BorderType.GradientTopBottomBorder:
+                    return $"░".PadRight(borderWidth, '░') + "░" + Environment.NewLine
+                           + $"▒".PadRight(borderWidth, '▒') + "▒" + Environment.NewLine
+                           + $"▓".PadRight(borderWidth, '▓') + "▓" + Environment.NewLine
+                           + $"█".PadRight(borderWidth, '█') + "█";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
             }
@@ -60,6 +73,11 @@ namespace _MG.CLI.Helper
                     return $"╚".PadRight(borderWidth, '═') + "╝";
                 case BorderType.BlockBorder:
                     return $"▀".PadRight(borderWidth, '▀') + "▀";
+                case BorderType.GradientTopBottomBorder:
+                    return $"█".PadRight(borderWidth, '█') + "█" + Environment.NewLine
+                           + $"▓".PadRight(borderWidth, '▓') + "▓" + Environment.NewLine
+                           + $"▒".PadRight(borderWidth, '▒') + "▒" + Environment.NewLine
+                           + $"░".PadRight(borderWidth, '░') + "░";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
             }
@@ -80,7 +98,9 @@ namespace _MG.CLI.Helper
                 case BorderType.DoubleBorder:
                     return $"║{line}".PadRight(borderWidth) + "║";
                 case BorderType.BlockBorder:
-                    return $"▀".PadRight(borderWidth, '▀') + "▀";
+                    return $"█{line}".PadRight(borderWidth) + "█";
+                case BorderType.GradientTopBottomBorder:
+                    return $"█{line}".PadRight(borderWidth) + "█";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
             }
@@ -92,19 +112,6 @@ namespace _MG.CLI.Helper
             var lineLength = line.Length % 2 == 0 ? line.Length : line.Length - 1; // for odd length
             var centeredTitle = "█".PadRight(centerPadding) + $"{line}".PadRight(centerPadding + lineLength) + "█";
             return centeredTitle;
-        }
-
-        internal static string GetBlockFrameLineCentered(string line)
-        {
-            var consoleWidth = GetConsoleWidth();
-            return GetBlockFrameLineCentered(line, consoleWidth);
-        }
-
-        public enum BorderType
-        {
-            SingleBorder,
-            DoubleBorder,
-            BlockBorder
         }
     }
 }

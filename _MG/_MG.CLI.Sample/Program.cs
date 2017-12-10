@@ -34,6 +34,9 @@ namespace _MG.CLI.Sample
             Console.Clear();
             MgConsole.Title.WriteTitle(BorderStringHelper.BorderType.BlockBorder, "Block-Border");
             Console.ReadLine();
+            Console.Clear();
+            MgConsole.Title.WriteTitle(BorderStringHelper.BorderType.GradientTopBottomBorder, "Gradient-Border");
+            Console.ReadLine();
 
             Console.Clear();
         }
